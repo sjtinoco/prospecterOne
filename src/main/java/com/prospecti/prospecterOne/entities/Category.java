@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -20,7 +23,9 @@ public class Category {
 	private Long id;
 	private String name;
 	
-	@Transient // para o jpa ignorar
+	//@Transient // para o jpa ignorar
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories") // categories de "private Set<Category> categories = new HashSet<>();" em Product
 	private Set<Product> products = new HashSet<>();
 	
 	public Category() {
